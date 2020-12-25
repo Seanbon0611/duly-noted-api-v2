@@ -9,13 +9,13 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	models "duly_noted/models"
+	Models "duly_noted/Models"
 )
 
 var db *gorm.DB
 
 func getUsers(c *gin.Context) {
-	var users []models.User
+	var users []Models.User
 	db.Find(&users)
 
 	if len(users) <= 0 {
@@ -24,9 +24,15 @@ func getUsers(c *gin.Context) {
 	}
 	for _, user := range users {
 
-		users = append(users, models.User{Username: user.Username, Email: user.Email})
+		users = append(users, Models.User{Username: user.Username, Email: user.Email})
 	}
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": users})
+}
+
+func createUser(c *gin.Context) {
+	var user Models.User
+	db.Save(user)
+	c.JSON(http.StatusCreated, gin.H{"status": http.StatusCreated, "message": "User Successfully Created"})
 }
 
 func init() {
@@ -37,7 +43,7 @@ func init() {
 		fmt.Println(err)
 		panic("Failed to connect to database")
 	}
-	db.AutoMigrate(&models.User{}, &models.Note{})
+	db.AutoMigrate(&Models.User{}, &Models.Note{})
 
 	fmt.Println("Database connected")
 }
@@ -50,7 +56,7 @@ func main() {
 	{
 		v1.GET("/users", getUsers)
 		// 	v1.GET("/users/id", getSingleUser)
-		// 	v1.POST("/users/create", createUser)
+		v1.POST("/users/create", createUser)
 		// 	v1.DELETE("users/delete/:id", deleteUser)
 		// }
 		server.Run(":3001")
