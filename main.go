@@ -1,22 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
-
+	Config "duly_noted/Config"
 	Models "duly_noted/Models"
-)
 
-var db *gorm.DB
+	"github.com/gin-gonic/gin"
+)
 
 func getUsers(c *gin.Context) {
 	var users []Models.User
-	db.Find(&users)
+	Config.DB.Find(&users)
 
 	if len(users) <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No users found"})
@@ -31,27 +26,14 @@ func getUsers(c *gin.Context) {
 
 func createUser(c *gin.Context) {
 	var user Models.User
-	db.Save(user)
+	Config.DB.Save(user)
 	c.JSON(http.StatusCreated, gin.H{"status": http.StatusCreated, "message": "User Successfully Created"})
-}
-
-func init() {
-	db, err := gorm.Open(postgres.Open("host=localhost port=5431 user=postgres dbname=duly_noted sslmode=disable"), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
-	})
-	if err != nil {
-		fmt.Println(err)
-		panic("Failed to connect to database")
-	}
-	db.AutoMigrate(&Models.User{}, &Models.Note{})
-
-	fmt.Println("Database connected")
 }
 
 func main() {
 
 	server := gin.Default()
-
+	Config.Init()
 	v1 := server.Group("/api/v1")
 	{
 		v1.GET("/users", getUsers)
