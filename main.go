@@ -17,7 +17,7 @@ func main() {
 	server.GET("/api/v1/users", Controllers.GetUsers)
 	server.GET("/api/v1/users/:id", Controllers.GetSingleUser)
 	server.POST("/api/v1/users/create", Controllers.CreateUser)
-	// 	v1.DELETE("users/delete/:id", deleteUser)
+	server.DELETE("/api/v1/users/delete/:id", Controllers.DeleteUser)
 	// }
 	server.Run(":3001")
 	// Routes.Router()
