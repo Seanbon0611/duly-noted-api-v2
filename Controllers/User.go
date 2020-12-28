@@ -14,7 +14,7 @@ type CreateUserInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
-func getUsers(c *gin.Context) {
+func GetUsers(c *gin.Context) {
 	var users []Models.User
 	Config.DB.Find(&users)
 
@@ -29,7 +29,7 @@ func getUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": users})
 }
 
-func CreaetUser(c *gin.Context) {
+func CreateUser(c *gin.Context) {
 	var input CreateUserInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
