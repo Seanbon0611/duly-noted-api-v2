@@ -14,6 +14,7 @@ type CreateUserInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
+//GET
 func GetUsers(c *gin.Context) {
 	var users []Models.User
 	Config.DB.Find(&users)
@@ -32,12 +33,13 @@ func GetUsers(c *gin.Context) {
 func GetSingleUser(c *gin.Context) {
 	var user Models.User
 	if err := Config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
+//POST
 func CreateUser(c *gin.Context) {
 	var input CreateUserInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -47,4 +49,16 @@ func CreateUser(c *gin.Context) {
 	new_user := Models.User{Username: input.Username, Email: input.Email, Password: input.Password}
 	Config.DB.Create(&new_user)
 	c.JSON(http.StatusOK, gin.H{"data": new_user})
+}
+
+//DELETE
+func DeleteUser(c *gin.Context) {
+	var user Models.User
+
+	if err := Config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "User Not Found"})
+		return
+	}
+	Config.DB.Delete(&user)
+	c.JSON(http.StatusOK, gin.H{"message": "User Successfully Deleted", "data": "true"})
 }
