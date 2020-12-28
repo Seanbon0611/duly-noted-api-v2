@@ -15,7 +15,7 @@ func main() {
 		c.Next()
 	})
 	server.GET("/api/v1/users", Controllers.GetUsers)
-	// 	v1.GET("/users/id", getSingleUser)
+	server.GET("/api/v1/users/:id", Controllers.GetSingleUser)
 	server.POST("/api/v1/users/create", Controllers.CreateUser)
 	// 	v1.DELETE("users/delete/:id", deleteUser)
 	// }
