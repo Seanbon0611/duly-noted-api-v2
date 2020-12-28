@@ -20,14 +20,14 @@ func GetUsers(c *gin.Context) {
 	Config.DB.Find(&users)
 
 	if len(users) <= 0 {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No users found"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "No users found"})
 		return
 	}
-	for _, user := range users {
+	// for _, user := range users {
 
-		users = append(users, Models.User{Username: user.Username, Email: user.Email})
-	}
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": users})
+	// 	users = append(users, Models.User{Username: user.Username, Email: user.Email})
+	// }
+	c.JSON(http.StatusOK, gin.H{"data": users})
 }
 
 func GetSingleUser(c *gin.Context) {
