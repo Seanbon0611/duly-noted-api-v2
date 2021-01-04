@@ -1,8 +1,8 @@
-package Controllers
+package controllers
 
 import (
-	Config "duly_noted/Config"
-	Models "duly_noted/Models"
+	"duly_noted/config"
+	"duly_noted/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,8 +16,8 @@ type CreateUserInput struct {
 
 //GET
 func GetUsers(c *gin.Context) {
-	var users []Models.User
-	Config.DB.Find(&users)
+	var users []models.User
+	config.DB.Find(&users)
 
 	if len(users) <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "No users found"})
@@ -25,14 +25,14 @@ func GetUsers(c *gin.Context) {
 	}
 	// for _, user := range users {
 
-	// 	users = append(users, Models.User{Username: user.Username, Email: user.Email})
+	// 	users = append(users, models.User{Username: user.Username, Email: user.Email})
 	// }
 	c.JSON(http.StatusOK, gin.H{"data": users})
 }
 
 func GetSingleUser(c *gin.Context) {
-	var user Models.User
-	if err := Config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
+	var user models.User
+	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
@@ -40,25 +40,38 @@ func GetSingleUser(c *gin.Context) {
 }
 
 //POST
-func CreateUser(c *gin.Context) {
-	var input CreateUserInput
-	if err := c.ShouldBindJSON(&input); err != nil {
+func SignupUser(c *gin.Context) {
+	var user models.User
+
+	err := c.ShouldBindJSON(&user)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
 		return
 	}
-	new_user := Models.User{Username: input.Username, Email: input.Email, Password: input.Password}
-	Config.DB.Create(&new_user)
-	c.JSON(http.StatusOK, gin.H{"data": new_user})
+	err = user.HashPassword(user.Password)
+	if err != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
+		c.Abort()
+		return
+	}
+	err = user.CreateUserInstance()
+	if err != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
 //DELETE
 func DeleteUser(c *gin.Context) {
-	var user Models.User
+	var user models.User
 
-	if err := Config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
+	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User Not Found"})
 		return
 	}
-	Config.DB.Delete(&user)
+	config.DB.Delete(&user)
 	c.JSON(http.StatusOK, gin.H{"message": "User Successfully Deleted", "data": "true"})
 }

@@ -1,9 +1,7 @@
-package Config
+package config
 
 import (
 	"fmt"
-
-	Models "duly_noted/Models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -19,7 +17,6 @@ func Init() {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
-	database.AutoMigrate(&Models.User{}, &Models.Note{})
 
 	fmt.Println("Database connected")
 

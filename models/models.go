@@ -1,6 +1,8 @@
 package models
 
 import (
+	"duly_noted/config"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -8,7 +10,7 @@ import (
 type (
 	User struct {
 		gorm.Model
-		Username string `json:"username" binding:"min=3, max=25" gorm:"varchar(27)unique; not null"`
+		Username string `json:"username" gorm:"varchar(27)unique; not null"`
 		Email    string `json:"email"gorm:"unique; not null"`
 		Password string `gorm:"not null`
 	}
@@ -20,6 +22,14 @@ type (
 		User    User
 	}
 )
+
+func (user *User) CreateUserInstance() error {
+	result := config.DB.Create(&user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
 
 func (user *User) HashPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
