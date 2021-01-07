@@ -20,7 +20,7 @@ func main() {
 	server.GET("/api/v1/users", controllers.GetUsers)
 	server.GET("/api/v1/users/:id", controllers.GetSingleUser)
 	server.POST("/api/v1/users/create", controllers.SignupUser)
-	server.POST("/api/v1/login", controllers.LoginUser)
+	server.POST("/api/v1/login", controllers.Login)
 	server.DELETE("/api/v1/users/delete/:id", controllers.DeleteUser)
 
 	//Start Server
