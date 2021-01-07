@@ -18,6 +18,7 @@ type JwtClaim struct {
 	jwt.StandardClaims
 }
 
+//generate JWT token for user with expiration
 func (j *JwtWrapper) GenerateToken(email string) (signedToken string, err error) {
 	claims := &JwtClaim{
 		Email: email,
@@ -34,6 +35,7 @@ func (j *JwtWrapper) GenerateToken(email string) (signedToken string, err error)
 	return
 }
 
+//validates generated JWT token
 func (j *JwtWrapper) ValidateToken(signedToken string) (claims *JwtClaim, err error) {
 	token, err := jwt.ParseWithClaims(
 		signedToken,
