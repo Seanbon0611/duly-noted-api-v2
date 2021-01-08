@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	auth "duly_noted/Auth"
+	"duly_noted/auth"
 	"duly_noted/config"
 	"duly_noted/models"
 	"net/http"
