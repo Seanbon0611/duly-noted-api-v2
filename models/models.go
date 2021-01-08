@@ -11,15 +11,15 @@ type (
 	User struct {
 		gorm.Model
 		Username string `json:"username" gorm:"varchar(27)unique; not null"`
-		Email    string `json:"email"gorm:"unique; not null"`
-		Password string `gorm:"not null`
+		Email    string `json:"email" gorm:"unique; not null"`
+		Password string `gorm:"not null"`
+		Notes    []Note
 	}
 
 	Note struct {
 		gorm.Model
-		UserID  uint   `json:"user_id"`
-		Content string `json:"content`
-		User    User
+		Content string `json:"content" gorm:"not null"`
+		UserID  int
 	}
 )
 
