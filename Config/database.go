@@ -20,6 +20,5 @@ func Init() {
 	}
 
 	fmt.Println("Database connected")
-
 	DB = database
 }
