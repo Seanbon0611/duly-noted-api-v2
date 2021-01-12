@@ -20,20 +20,20 @@ func GetUsers(c *gin.Context) {
 	config.DB.Find(&users)
 
 	if len(users) <= 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "No users found"})
+		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "No users found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": users})
 }
 
 func GetSingleUser(c *gin.Context) {
 	var user models.User
 	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "User not found"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": user})
 }
 
 //POST
@@ -42,32 +42,32 @@ func SignupUser(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": err.Error()})
 		c.Abort()
 		return
 	}
 	err = user.HashPassword(user.Password)
 	if err != nil {
-		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": err.Error()})
 		c.Abort()
 		return
 	}
 	err = user.CreateUserInstance()
 	if err != nil {
-		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": err.Error()})
 		c.Abort()
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": user})
 }
 
 //DELETE
 func DeleteUser(c *gin.Context) {
 	var user models.User
 	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "User Not Found"})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "User Not Found"})
 		return
 	}
 	config.DB.Delete(&user)
-	c.JSON(http.StatusOK, gin.H{"message": "User Successfully Deleted", "data": "true"})
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": "User Successfully Deleted"})
 }
