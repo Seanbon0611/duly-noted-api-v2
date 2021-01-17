@@ -8,12 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// type CreateUserInput struct {
-// 	Username string `json:"username" binding:"required"`
-// 	Email    string `json:"email" binding:"required"`
-// 	Password string `json:"password" binding:"required"`
-// }
-
 //GET
 func GetUsers(c *gin.Context) {
 	var users []models.User

@@ -29,7 +29,7 @@ func Login(c *gin.Context) {
 	//Checks Token
 	err := c.ShouldBindJSON(&payload)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": err})
 		c.Abort()
 		return
 	}
@@ -39,7 +39,7 @@ func Login(c *gin.Context) {
 
 	//if credentials are invalid, return error
 	if result.Error == gorm.ErrRecordNotFound {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Incorrect credentials"})
+		c.JSON(http.StatusUnauthorized, gin.H{"msg": "error", "error": "Incorrect credentials"})
 		c.Abort()
 		return
 	}
@@ -47,7 +47,7 @@ func Login(c *gin.Context) {
 	//Checking user input password
 	err = user.CheckPassword(payload.Password)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
+		c.JSON(http.StatusUnauthorized, gin.H{"msg": "error", "error": "Invalid credentials"})
 		c.Abort()
 		return
 	}
@@ -62,7 +62,7 @@ func Login(c *gin.Context) {
 	token, err := jwtWrapper.GenerateToken(user.Email)
 	//If there is an error return 500 status code
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error signing token"})
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "error", "error": "Error signing token"})
 		c.Abort()
 		return
 	}
@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 		Token: token,
 	}
 
-	c.JSON(http.StatusOK, tokenResponse)
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "token": tokenResponse, "email": user.Email, "notes": user.Notes})
 
 	return
 }
