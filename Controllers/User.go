@@ -37,19 +37,19 @@ func SignupUser(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "Error with JSON"})
 		c.Abort()
 		return
 	}
 	err = user.HashPassword(user.Password)
 	if err != nil {
-		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": err.Error()})
+		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": "Error could not signup"})
 		c.Abort()
 		return
 	}
 	err = user.CreateUserInstance()
 	if err != nil {
-		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": err.Error()})
+		c.JSON(http.StatusNotAcceptable, gin.H{"msg": "error", "error": "Error registering user"})
 		c.Abort()
 		return
 	}
