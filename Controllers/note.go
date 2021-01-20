@@ -19,7 +19,7 @@ func CreateNote(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": err.Error()})
 		c.Abort()
 		return
 	}
@@ -27,10 +27,22 @@ func CreateNote(c *gin.Context) {
 	note := models.Note{UserID: input.UserID, Content: input.Content}
 	result := config.DB.Create(&note)
 	if result.Error != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Error Creating Note"})
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "Error Creating Note"})
 		c.Abort()
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": note})
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": note})
+}
+
+func GetUserNotes(c *gin.Context) {
+	var notes models.Note
+
+	if err := config.DB.Where("UserID <> ?", c.Param("id")).Find(&notes).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "No notes found"})
+		c.Abort()
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": notes})
 }

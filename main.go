@@ -39,6 +39,7 @@ func main() {
 	server.POST("/api/v1/login", controllers.Login)
 
 	//Note
+	server.GET("api/v1/notes/:id", controllers.GetUserNotes)
 	server.POST("/api/v1/notes/create", controllers.CreateNote)
 
 	//Start Server
