@@ -28,6 +28,7 @@ func goDotEnvVariable(key string) string {
 //Initiate Database
 func Init() {
 
+	//envirnment variables for credentials
 	dbHost := goDotEnvVariable("HOST")
 	dbPort := goDotEnvVariable("PORT")
 	dbUser := goDotEnvVariable("DBUSER")
