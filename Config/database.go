@@ -35,6 +35,7 @@ func Init() {
 	dbName := goDotEnvVariable("DBNAME")
 	dbPass := goDotEnvVariable("PASSWORD")
 	dbSsl := goDotEnvVariable("SSLMODE")
+	fmt.Println(dbPass)
 	dbCred := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", dbHost, dbPort, dbUser, dbName, dbPass, dbSsl)
 
 	database, err := gorm.Open(postgres.Open(dbCred), &gorm.Config{
