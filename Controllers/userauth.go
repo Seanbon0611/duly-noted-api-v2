@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
+	config "github.com/seanbon0611/duly-noted-api-v2/Config"
 	"github.com/seanbon0611/duly-noted-api-v2/auth"
-	"github.com/seanbon0611/duly-noted-api-v2/config"
 	"github.com/seanbon0611/duly-noted-api-v2/models"
 
 	"gorm.io/gorm"
