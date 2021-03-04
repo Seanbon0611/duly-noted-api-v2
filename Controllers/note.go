@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/seanbon0611/duly-noted-api-v2/config"
+	config "github.com/seanbon0611/duly-noted-api-v2/Config"
 	"github.com/seanbon0611/duly-noted-api-v2/models"
 
 	"github.com/gin-gonic/gin"
