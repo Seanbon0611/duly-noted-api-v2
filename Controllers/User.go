@@ -25,7 +25,7 @@ func GetUsers(c *gin.Context) {
 func GetSingleUser(c *gin.Context) {
 	var user models.User
 	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "User not found"})
+		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "User not found "})
 		c.Abort()
 		return
 	}
