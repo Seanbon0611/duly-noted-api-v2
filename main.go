@@ -1,10 +1,11 @@
 package main
 
 import (
-	"duly_noted/config"
-	"duly_noted/controllers"
-	"duly_noted/models"
 	"time"
+
+	"github.com/duly_noted/config"
+	"github.com/duly_noted/controllers"
+	"github.com/duly_noted/models"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,7 @@ func main() {
 
 	//Cors
 	server.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowOrigins:     []string{"http://localhost:3000, https://angry-bohr-320bd2.netlify.app/"},
 		AllowMethods:     []string{"PUT", "PATCH", "POST", "GET"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -39,7 +40,7 @@ func main() {
 	server.POST("/api/v1/login", controllers.Login)
 
 	//Note
-	server.GET("api/v1/notes/:id", controllers.GetUserNotes)
+	server.GET("/api/v1/notes/:id", controllers.GetUserNotes)
 	server.POST("/api/v1/notes/create", controllers.CreateNote)
 
 	//Start Server

@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"duly_noted/auth"
-	"duly_noted/config"
-	"duly_noted/models"
 	"net/http"
+
+	"github.com/duly_noted/auth"
+	"github.com/duly_noted/config"
+	"github.com/duly_noted/models"
 
 	"gorm.io/gorm"
 

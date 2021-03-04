@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"duly_noted/config"
-	"duly_noted/models"
 	"net/http"
+
+	"github.com/duly_noted/config"
+	"github.com/duly_noted/models"
 
 	"github.com/gin-gonic/gin"
 )
