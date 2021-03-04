@@ -3,9 +3,9 @@ package main
 import (
 	"time"
 
-	"github.com/duly_noted/config"
-	"github.com/duly_noted/controllers"
-	"github.com/duly_noted/models"
+	"github.com/seanbon0611/duly-noted-api-v2/config"
+	"github.com/seanbon0611/duly-noted-api-v2/controllers"
+	"github.com/seanbon0611/duly-noted-api-v2/models"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

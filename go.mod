@@ -1,4 +1,4 @@
-module github.com/duly_noted
+module github.com/seanbon0611/duly-noted-api-v2
 
 go 1.15
 

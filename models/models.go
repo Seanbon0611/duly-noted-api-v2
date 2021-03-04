@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/duly_noted/config"
+	"github.com/seanbon0611/duly-noted-api-v2/config"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

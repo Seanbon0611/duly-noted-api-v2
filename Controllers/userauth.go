@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/duly_noted/auth"
-	"github.com/duly_noted/config"
-	"github.com/duly_noted/models"
+	"github.com/seanbon0611/duly-noted-api-v2/auth"
+	"github.com/seanbon0611/duly-noted-api-v2/config"
+	"github.com/seanbon0611/duly-noted-api-v2/models"
 
 	"gorm.io/gorm"
 
