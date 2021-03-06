@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -14,7 +14,6 @@ var DB *gorm.DB
 
 //Initiate Database
 func Init() {
-	err := godotenv.Load()
 
 	//envirnment variables for credentials
 	dbHost := os.Getenv("HOST")
