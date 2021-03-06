@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -13,28 +12,17 @@ import (
 
 var DB *gorm.DB
 
-func goDotEnvVariable(key string) string {
-
-	// load .env file
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
-	return os.Getenv(key)
-}
-
 //Initiate Database
 func Init() {
+	err := godotenv.Load()
 
 	//envirnment variables for credentials
-	dbHost := goDotEnvVariable("HOST")
-	dbPort := goDotEnvVariable("PORT")
-	dbUser := goDotEnvVariable("DBUSER")
-	dbName := goDotEnvVariable("DBNAME")
-	dbPass := goDotEnvVariable("PASSWORD")
-	dbSsl := goDotEnvVariable("SSLMODE")
+	dbHost := os.Getenv("HOST")
+	dbPort := os.Getenv("PORT")
+	dbUser := os.Getenv("DBUSER")
+	dbName := os.Getenv("DBNAME")
+	dbPass := os.Getenv("PASSWORD")
+	dbSsl := os.Getenv("SSLMODE")
 	dbCred := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", dbHost, dbPort, dbUser, dbName, dbPass, dbSsl)
 
 	database, err := gorm.Open(postgres.Open(dbCred), &gorm.Config{
