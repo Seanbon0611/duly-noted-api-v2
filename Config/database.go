@@ -14,8 +14,8 @@ var DB *gorm.DB
 
 //Initiate Database
 func Init() {
-
 	//envirnment variables for credentials
+
 	dbHost := os.Getenv("HOST")
 	dbPort := os.Getenv("PORT")
 	dbUser := os.Getenv("DBUSER")
