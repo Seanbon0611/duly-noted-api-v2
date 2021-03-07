@@ -17,12 +17,11 @@ func main() {
 
 	//Cors
 	server.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000, https://angry-bohr-320bd2.netlify.app/"},
-		AllowMethods:     []string{"PUT", "PATCH", "POST", "GET"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
+		AllowOrigins:  []string{"http://localhost:3000, https://angry-bohr-320bd2.netlify.app/, https://duly-noted-api-cfac6.ondigitalocean.app/duly-noted-api-v-2"},
+		AllowMethods:  []string{"PUT", "PATCH", "POST", "GET"},
+		AllowHeaders:  []string{"Origin"},
+		ExposeHeaders: []string{"Content-Length"},
+		MaxAge:        3 * time.Hour,
 	}))
 
 	//Connection to Database
