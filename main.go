@@ -29,7 +29,6 @@ func main() {
 	config.DB.AutoMigrate(&models.User{}, &models.Note{})
 
 	//Routes
-
 	//User
 	server.GET("/api/v1/users", controllers.GetUsers)
 	server.GET("/api/v1/users/:id", controllers.GetSingleUser)
