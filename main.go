@@ -18,7 +18,7 @@ func main() {
 	//Cors
 	server.Use(cors.New(cors.Config{
 		AllowOrigins:  []string{"https://angry-bohr-320bd2.netlify.app", "http://localhost:3000"},
-		AllowMethods:  []string{"PUT", "PATCH", "POST", "GET", "DELETE"},
+		AllowMethods:  []string{"DELETE", "PUT", "PATCH", "POST", "GET"},
 		AllowHeaders:  []string{"Origin"},
 		ExposeHeaders: []string{"Content-Length"},
 		MaxAge:        3 * time.Hour,
@@ -29,6 +29,7 @@ func main() {
 	config.DB.AutoMigrate(&models.User{}, &models.Note{})
 
 	//Routes
+
 	//User
 	server.GET("/api/v1/users", controllers.GetUsers)
 	server.GET("/api/v1/users/:id", controllers.GetSingleUser)
@@ -40,7 +41,6 @@ func main() {
 	//Note
 	server.GET("/api/v1/notes/:id", controllers.GetUserNotes)
 	server.POST("/api/v1/notes/create", controllers.CreateNote)
-	server.DELETE("/api/v1/notes/delete/:id", controllers.DeleteNote)
 
 	//Start Server
 	server.Run(":3001")
