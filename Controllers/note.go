@@ -24,8 +24,9 @@ func CreateNote(c *gin.Context) {
 		c.Abort()
 		return
 	}
-
+	//note variable refers to Struct that gets the user input data
 	note := models.Note{UserID: input.UserID, Content: input.Content}
+	//using that user input data and creating a new DB instance of a note
 	result := config.DB.Create(&note)
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "Error Creating Note"})
@@ -46,4 +47,16 @@ func GetUserNotes(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": notes})
+}
+
+//DELETE
+func DeleteNote(c *gin.Context) {
+	var note models.Note
+
+	if err := config.DB.Where("id = ?", c.Param("id")).First(&note).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "Note Not Found"})
+		return
+	}
+	config.DB.Delete(&note)
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": "Note successfully deleted"})
 }

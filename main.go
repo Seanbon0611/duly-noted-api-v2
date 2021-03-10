@@ -40,6 +40,7 @@ func main() {
 	//Note
 	server.GET("/api/v1/notes/:id", controllers.GetUserNotes)
 	server.POST("/api/v1/notes/create", controllers.CreateNote)
+	server.DELETE("/api/v1/notes/delete/:id", controllers.DeleteNote)
 
 	//Start Server
 	server.Run(":3001")
