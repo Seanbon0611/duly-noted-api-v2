@@ -18,7 +18,7 @@ func main() {
 	//Cors
 	server.Use(cors.New(cors.Config{
 		AllowOrigins:  []string{"https://angry-bohr-320bd2.netlify.app", "http://localhost:3000"},
-		AllowMethods:  []string{"PUT", "PATCH", "POST", "GET", "DELETE"},
+		AllowMethods:  []string{"PUT", "PATCH", "POST", "GET", "DELETE", "OPTIONS"},
 		AllowHeaders:  []string{"Origin"},
 		ExposeHeaders: []string{"Content-Length"},
 		MaxAge:        3 * time.Hour,
