@@ -1,4 +1,4 @@
-package controllers
+package Controllers
 
 import (
 	"net/http"
@@ -57,11 +57,23 @@ func SignupUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "data": user})
 }
 
+// //UPDATE
+// func UpdateUser(c *gin.Context) {
+// 	var user models.User
+
+// 	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "Cannot find user"})
+// 		c.Abort()
+// 		return
+// 	}
+// }
+
 //DELETE
 func DeleteUser(c *gin.Context) {
 	var user models.User
 	if err := config.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"msg": "error", "error": "User Not Found"})
+		c.JSON(http.StatusNotFound, gin.H{"msg": "error", "error": "User Not Found"})
+		c.Abort()
 		return
 	}
 	config.DB.Delete(&user)

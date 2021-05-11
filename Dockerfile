@@ -8,6 +8,5 @@ COPY . .
 
 RUN go build -o main .
 
-EXPOSE 3001
 
-ENTRYPOINT [ "./main" ]
+CMD ["app"]

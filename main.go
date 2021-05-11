@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	config "github.com/seanbon0611/duly-noted-api-v2/Config"
 	controllers "github.com/seanbon0611/duly-noted-api-v2/Controllers"
 	"github.com/seanbon0611/duly-noted-api-v2/models"
@@ -14,7 +16,13 @@ func main() {
 	server := gin.Default()
 
 	//Cors
-	server.Use(cors.Default())
+	server.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"https://angry-bohr-320bd2.netlify.app", "http://localhost:3000"},
+		AllowMethods:  []string{"PUT", "PATCH", "POST", "GET", "DELETE", "OPTIONS"},
+		AllowHeaders:  []string{"Origin"},
+		ExposeHeaders: []string{"Content-Length"},
+		MaxAge:        3 * time.Hour,
+	}))
 
 	//Connection to Database
 	config.Init()
