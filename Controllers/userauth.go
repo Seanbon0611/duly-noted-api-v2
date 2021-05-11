@@ -1,11 +1,11 @@
-package Controllers
+package controllers
 
 import (
 	"net/http"
 
-	auth "github.com/seanbon0611/duly-noted-api-v2/Auth"
-	config "github.com/seanbon0611/duly-noted-api-v2/Config"
-	"github.com/seanbon0611/duly-noted-api-v2/models"
+	auth "github.com/Seanbon0611/duly-noted-api-v2/Auth"
+	config "github.com/Seanbon0611/duly-noted-api-v2/Config"
+	"github.com/Seanbon0611/duly-noted-api-v2/models"
 
 	"gorm.io/gorm"
 
