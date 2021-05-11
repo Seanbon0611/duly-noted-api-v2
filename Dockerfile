@@ -6,7 +6,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o main .
+RUN go get -d -v ./...
+RUN go install -v ./...
 
 
-CMD ["app"]
+ENTRYPOINT [ "./main" ]
