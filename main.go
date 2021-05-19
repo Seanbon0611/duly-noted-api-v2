@@ -9,9 +9,16 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 )
 
 func main() {
+
+	tracer.Start(
+		tracer.WithEnv("duly-noted"),
+	)
+	defer tracer.Stop()
 	//Initiate server
 	server := gin.Default()
 
@@ -23,9 +30,10 @@ func main() {
 		ExposeHeaders: []string{"Content-Length"},
 		MaxAge:        3 * time.Hour,
 	}))
+	httptrace.
 
-	//Connection to Database
-	config.Init()
+		//Connection to Database
+		config.Init()
 	config.DB.AutoMigrate(&models.User{}, &models.Note{})
 
 	//Routes
