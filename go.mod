@@ -38,6 +38,7 @@ require (
 	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/labstack/echo/v4 v4.3.0 // indirect
 	github.com/miekg/dns v1.1.42 // indirect
+	github.com/opentracing-contrib/go-gin v0.0.0-20201220185307-1dd2273433a4 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
@@ -47,7 +48,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b
 	golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c // indirect
 	google.golang.org/grpc v1.37.1 // indirect
-	gopkg.in/DataDog/dd-trace-go.v1 v1.31.0 // indirect
+	gopkg.in/DataDog/dd-trace-go.v1 v1.31.0
 	gopkg.in/jinzhu/gorm.v1 v1.9.2 // indirect
 	gorm.io/driver/postgres v1.0.8
 	gorm.io/gorm v1.21.1
