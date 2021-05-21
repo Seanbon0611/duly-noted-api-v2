@@ -20,7 +20,7 @@ func main() {
 	defer tracer.Stop()
 	//Initiate server
 	server := gin.Default()
-	server.Use(gintrace.Middleware("my-web-app"))
+	server.Use(gintrace.Middleware("duly-noted"))
 
 	//Cors
 	server.Use(cors.New(cors.Config{
