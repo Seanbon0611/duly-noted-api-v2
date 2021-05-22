@@ -3,6 +3,7 @@ module github.com/seanbon0611/duly-noted-api-v2
 go 1.15
 
 require (
+	gopkg.in/DataDog/dd-trace-go.v1 v1.31.0
 	cloud.google.com/go/pubsub v1.10.3 // indirect
 	github.com/DataDog/datadog-api-client-go v1.0.0-beta.22 // indirect
 	github.com/Microsoft/go-winio v0.5.0 // indirect
@@ -48,7 +49,6 @@ require (
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b
 	golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c // indirect
 	google.golang.org/grpc v1.37.1 // indirect
-	gopkg.in/DataDog/dd-trace-go.v1 v1.31.0
 	gopkg.in/jinzhu/gorm.v1 v1.9.2 // indirect
 	gorm.io/driver/postgres v1.0.8
 	gorm.io/gorm v1.21.1
