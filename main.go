@@ -19,7 +19,7 @@ func main() {
 	tracer.Start(
 		tracer.WithEnv("development"),
 		tracer.WithService("duly-noted"),
-		tracer.WithServiceVersion("abc123"),
+		tracer.WithServiceVersion("1.0.0"),
 	)
 	defer tracer.Stop()
 	//Initiate server
