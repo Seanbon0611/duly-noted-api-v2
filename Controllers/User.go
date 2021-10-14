@@ -5,6 +5,7 @@ import (
 
 	config "github.com/seanbon0611/duly-noted-api-v2/Config"
 	"github.com/seanbon0611/duly-noted-api-v2/models"
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,11 @@ import (
 //GET
 func GetUsers(c *gin.Context) {
 	var users []models.User
+	span := tracer.StartSpan("web.request", tracer.ResourceName("/users"))
+	defer span.Finish()
+
+	span.SetTag("http.url", c.FullPath())
+	span.SetTag("test1key", "test1value")
 	config.DB.Find(&users)
 
 	if len(users) <= 0 {

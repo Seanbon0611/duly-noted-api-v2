@@ -16,7 +16,11 @@ import (
 
 func main() {
 
-	tracer.Start()
+	tracer.Start(
+		tracer.WithEnv("development"),
+		tracer.WithService("duly-noted"),
+		tracer.WithServiceVersion("abc123"),
+	)
 	defer tracer.Stop()
 	//Initiate server
 	server := gin.Default()
